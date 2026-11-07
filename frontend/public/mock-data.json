@@ -1,0 +1,52 @@
+[
+  {
+    "id": "ORD-001",
+    "name": "A. Baires - Hackathon Essentials",
+    "components": [
+      {
+        "name": "Energy Drinks",
+        "count": 3
+      },
+      {
+        "name": "Granola Bars",
+        "count": 4
+      },
+      {
+        "name": "Bottled Water",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "id": "ORD-002",
+    "name": "Late Night Fuel",
+    "components": [
+      {
+        "name": "Coffee",
+        "count": 2
+      },
+      {
+        "name": "Chips",
+        "count": 2
+      }
+    ]
+  },
+  {
+    "id": "ORD-003",
+    "name": "Team Snack Pack",
+    "components": [
+      {
+        "name": "Trail Mix",
+        "count": 3
+      },
+      {
+        "name": "Cookies",
+        "count": 6
+      },
+      {
+        "name": "Bottled Water",
+        "count": 4
+      }
+    ]
+  }
+]

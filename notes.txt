@@ -1,0 +1,26 @@
+github repo link
+slide deck optional
+demo video optional
+
+5mins w/ judges to present - why building, etc
+
+did you consider security, guardrails, sandboxes, etc. ?
+
+api creds:
+will get creds to integrate AI into it thru openrouter -- emailing each team. 
+cannot be used to BUILD the project -- must use what we have. 
+
+
+restaurant side:
+    have a camera above workstations to determine the exact progress of certain food items? 
+    use previous real-times to augment this process
+    provide estimates to a routing system to more accurately map routes & assess which items should be prioritiezed in the kitchen 
+
+
+    
+
+
+
+
+
+
