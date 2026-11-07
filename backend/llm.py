@@ -66,7 +66,7 @@ def build_messages(order: dict, frames: list[str], board: str | None) -> list[di
     }, ensure_ascii=False)
 
     # OpenRouter recommends text before images.
-    content = [{"type": "text", "text": f"Order ticket:\n{ticket_text}"}]
+    content: list[dict[str, object]] = [{"type": "text", "text": f"Order ticket:\n{ticket_text}"}]
     if board:
         content.append({"type": "text", "text": "Ingredient board (reference photo, labeled):"})
         content.append({"type": "image_url", "image_url": {"url": board}})

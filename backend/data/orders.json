@@ -53,7 +53,7 @@
       "dishes": [{"name": "Hackathon essentials", "ingredients": ["pen", "paper", "phone", "water bottle", "laptop", "headphones"], "exclude": []}],
     "pack":[
       {"name": "Hackathon essentials", "qty": 1}],
-    "needs": {"contact": "Needs extra time to think for the hackathon", "dropoff": "Ring doorbell", "allergy": "manual coding"}
+    "needs": {"contact": "Needs extra time to think for the hackathon", "dropoff": "Ring doorbell", "allergy": ""}
     }
   ]
 }
