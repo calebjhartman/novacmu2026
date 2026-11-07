@@ -395,3 +395,89 @@ input:focus {
   color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
 }
+/* ---- backend wiring: order check UI ---- */
+.orders-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.order-start:disabled,
+.login-button:disabled,
+.glass-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.allergy-banner {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #fff3cd;
+  color: #6b4b00;
+  font-weight: 700;
+}
+
+.verdict-meta {
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.verdict-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.verdict-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border-left: 4px solid transparent;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 14px;
+}
+
+.verdict-line > div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.verdict-status {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.verdict-line.status-correct { border-left-color: #7ee08a; }
+.verdict-line.status-missing,
+.verdict-line.status-extra_or_wrong { border-left-color: #ffe14d; background: rgba(0, 0, 0, 0.18); }
+.verdict-line.status-cant_verify { border-left-color: #cfd8ff; }
+.verdict-line.resolved { border-left-color: #7ee08a; background: rgba(255, 255, 255, 0.08); }
+
+.verdict-line .order-start {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.verdict-action {
+  min-height: 0;
+  padding: 14px;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.handoff-line {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.verdict-back {
+  display: block;
+  margin: 12px auto 0;
+}
