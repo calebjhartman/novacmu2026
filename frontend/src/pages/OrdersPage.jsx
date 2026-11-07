@@ -1,126 +1,128 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DasherPage from "./DasherPage.jsx";
+import { api, orderTitle } from "../api.js";
 
+const STATE_LABELS = {
+  waiting: "Waiting",
+  building: "Building",
+  checking: "Checking…",
+  needs_fix: "Needs fix",
+  ready: "Ready",
+  picked_up: "Picked up",
+};
 
-export default function OrdersPage({ onBack, onStart }) {
+export default function OrdersPage({ onBack }) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [busyId, setBusyId] = useState(null);
 
-  useEffect(() => {
-    let active = true;
-    const controller = new AbortController();
-
-    async function loadOrders() {
-      try {
-        const response = await fetch(
-          `${import.meta.env.BASE_URL}mock-data.json`,
-          { signal: controller.signal }
-        );
-
-        if (!response.ok) {
-          throw new Error("Unable to load orders.json.");
-        }
-
-        const data = await response.json();
-
-        if (
-          !Array.isArray(data) ||
-          !data.every(
-            (order) =>
-              order !== null &&
-              typeof order === "object" &&
-              (typeof order.id === "string" ||
-                typeof order.id === "number") &&
-              typeof order.name === "string"
-          )
-        ) {
-          throw new Error("orders.json has an invalid format.");
-        }
-
-        if (active) {
-          setOrders(data);
-        }
-      } catch (err) {
-        if (active && err.name !== "AbortError") {
-          setError(err.message || "Unable to load orders.");
-        }
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
-      }
+  const loadOrders = useCallback(async (signal) => {
+    try {
+      setError("");
+      setOrders(await api.listOrders(signal));
+    } catch (err) {
+      if (err.name !== "AbortError") setError(err.message || "Unable to load orders.");
+    } finally {
+      setLoading(false);
     }
-
-    loadOrders();
-
-    return () => {
-      active = false;
-      controller.abort();
-    };
   }, []);
 
+  useEffect(() => {
+    const controller = new AbortController();
+    loadOrders(controller.signal);
+    return () => controller.abort();
+  }, [loadOrders]);
+
+  async function openOrder(order) {
+    // Only waiting orders get started; anything else reopens as-is (with its verdict).
+    setBusyId(order.id);
+    try {
+      const opened = order.state === "waiting" ? await api.start(order.id) : order;
+      setSelectedOrder(opened);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function resetDemo() {
+    setLoading(true);
+    try {
+      setOrders(await api.reset());
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   if (selectedOrder) {
-        return (
-        <DasherPage
+    return (
+      <DasherPage
         order={selectedOrder}
-        onDone={() => setSelectedOrder(null)}
-        />
-        );
-    }
+        onDone={() => {
+          setSelectedOrder(null);
+          loadOrders();
+        }}
+      />
+    );
+  }
 
   return (
     <main className="page">
       <section className="orders-panel" aria-labelledby="orders-title">
         <header className="orders-header">
           <h1 id="orders-title">Orders</h1>
-
-          {onBack && (
-            <button
-              className="orders-back"
-              type="button"
-              onClick={onBack}
-            >
-              ← Back
+          <div className="orders-actions">
+            <button className="orders-back" type="button" onClick={resetDemo}>
+              Reset demo
             </button>
-          )}
+            {onBack && (
+              <button className="orders-back" type="button" onClick={onBack}>
+                ← Back
+              </button>
+            )}
+          </div>
         </header>
 
         <div role="status">
-          {loading && (
-            <p className="orders-message">Loading orders…</p>
-          )}
-
-          {error && (
-            <p className="orders-message">{error}</p>
-          )}
-
+          {loading && <p className="orders-message">Loading orders…</p>}
+          {error && <p className="orders-message">{error}</p>}
           {!loading && !error && orders.length === 0 && (
             <p className="orders-message">No orders yet.</p>
           )}
         </div>
 
-        {!loading && !error && (
+        {!loading && (
           <ul className="orders-list">
-            {orders.map((order) => (
-              <li className="order-row" key={order.id}>
-                <div className="order-details">
-                  <span className="order-id">{order.id}</span>
-                  <h2 className="order-name">{order.name}</h2>
-                </div>
-
-                <button
+            {orders.map((order) => {
+              const title = orderTitle(order);
+              const label =
+                order.state === "waiting" ? "Start" : order.state === "picked_up" ? "View" : "Open";
+              return (
+                <li className="order-row" key={order.id}>
+                  <div className="order-details">
+                    <span className="order-id">
+                      #{order.id} · {order.source} · {STATE_LABELS[order.state] || order.state}
+                      {order.has_allergy ? " · ⚠ allergy" : ""}
+                    </span>
+                    <h2 className="order-name">{title}</h2>
+                  </div>
+                  <button
                     className="order-start"
                     type="button"
-                    onClick={() => setSelectedOrder(order)}
-                    aria-label={`Start ${order.name}, order ${order.id}`}
-                    >
-                    Start
-                </button>
-              </li>
-            ))}
+                    disabled={busyId === order.id}
+                    onClick={() => openOrder(order)}
+                    aria-label={`${label} order ${order.id}, ${title}`}
+                  >
+                    {busyId === order.id ? "…" : label}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>

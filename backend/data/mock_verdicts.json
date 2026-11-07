@@ -1,0 +1,49 @@
+{
+  "1043": {
+    "observed": [
+      {"item": "white rice", "count": 1, "frame": 2},
+      {"item": "steak", "count": 1, "frame": 4},
+      {"item": "corn", "count": 1, "frame": 5},
+      {"item": "cheese", "count": 1, "frame": 7},
+      {"item": "steak bowl", "count": 1, "frame": 10},
+      {"item": "drink can", "count": 1, "frame": 11}
+    ],
+    "assembly": [
+      {"line_id": "A1", "status": "correct", "reason": ""},
+      {"line_id": "A2", "status": "correct", "reason": ""},
+      {"line_id": "A3", "status": "correct", "reason": ""},
+      {"line_id": "A4", "status": "missing", "reason": "No guac scooped into the bowl"},
+      {"line_id": "A5", "status": "extra_or_wrong", "reason": "Cheese added in frame 7"}
+    ],
+    "pack": [
+      {"line_id": "P1", "status": "correct", "reason": ""},
+      {"line_id": "P2", "status": "correct", "reason": ""},
+      {"line_id": "P3", "status": "cant_verify", "reason": "Hand blocks the bag in final frames"}
+    ],
+    "not_on_ticket": []
+  },
+  "1045": {
+    "observed": [
+      {"item": "pen", "count": 1, "frame": 1},
+      {"item": "paper", "count": 1, "frame": 2},
+      {"item": "phone", "count": 1, "frame": 4},
+      {"item": "water bottle", "count": 1, "frame": 5},
+      {"item": "laptop", "count": 1, "frame": 7},
+      {"item": "energy drink", "count": 1, "frame": 9}
+    ],
+    "assembly": [
+      {"line_id": "A1", "status": "correct", "reason": ""},
+      {"line_id": "A2", "status": "correct", "reason": ""},
+      {"line_id": "A3", "status": "correct", "reason": ""},
+      {"line_id": "A4", "status": "correct", "reason": ""},
+      {"line_id": "A5", "status": "correct", "reason": ""},
+      {"line_id": "A6", "status": "missing", "reason": "No headphones seen going in"}
+    ],
+    "pack": [
+      {"line_id": "P1", "status": "correct", "reason": ""}
+    ],
+    "not_on_ticket": [
+      {"section": "pack", "item": "energy drink", "reason": "Not on the ticket"}
+    ]
+  }
+}

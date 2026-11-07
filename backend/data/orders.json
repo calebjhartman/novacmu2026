@@ -1,0 +1,59 @@
+{
+  "_note": "Synthetic demo orders. DRAFT menu until wayfinder ticket 04 (demo menu and scripts) closes. 1043 is the scripted sad path: ticket says guac + no cheese; the worker adds cheese and forgets guac.",
+  "orders": [
+    {
+      "id": "1042",
+      "customer_first_name": "Maya",
+      "source": "DoorDash",
+      "bags": 1,
+      "dishes": [
+        {"name": "Chicken bowl", "ingredients": ["white rice", "black beans", "chicken", "salsa"], "exclude": []}
+      ],
+      "pack": [
+        {"name": "chicken bowl", "qty": 1},
+        {"name": "salsa cup", "qty": 2},
+        {"name": "chips bag", "qty": 1}
+      ],
+      "needs": {"contact": "Text on arrival, please don't call", "dropoff": "Leave at door", "allergy": ""}
+    },
+    {
+      "id": "1043",
+      "customer_first_name": "Jordan",
+      "source": "DoorDash",
+      "bags": 1,
+      "dishes": [
+        {"name": "Steak bowl", "ingredients": ["white rice", "steak", "corn", "guac"], "exclude": ["cheese"]}
+      ],
+      "pack": [
+        {"name": "steak bowl", "qty": 1},
+        {"name": "drink can", "qty": 1},
+        {"name": "fork", "qty": 1}
+      ],
+      "needs": {"contact": "Call when outside", "dropoff": "Hand to customer", "allergy": "Dairy allergy — no cheese or sour cream"}
+    },
+    {
+      "id": "1044",
+      "customer_first_name": "Sam",
+      "source": "DoorDash",
+      "bags": 1,
+      "dishes": [
+        {"name": "Veggie bowl", "ingredients": ["white rice", "black beans", "corn", "lettuce", {"name": "salsa", "qty": 2}], "exclude": ["sour cream"]}
+      ],
+      "pack": [
+        {"name": "veggie bowl", "qty": 1},
+        {"name": "guac cup", "qty": 1}
+      ],
+      "needs": {"contact": "Needs extra time to come to the door", "dropoff": "Ring doorbell", "allergy": ""}
+    },
+    {
+      "id": "1045",
+      "customer_first_name": "Antonio",
+      "source": "DoorDash",
+      "bags": 1,
+      "dishes": [{"name": "Hackathon essentials", "ingredients": ["pen", "paper", "phone", "water bottle", "laptop", "headphones"], "exclude": []}],
+    "pack":[
+      {"name": "Hackathon essentials", "qty": 1}],
+    "needs": {"contact": "Needs extra time to think for the hackathon", "dropoff": "Ring doorbell", "allergy": ""}
+    }
+  ]
+}
